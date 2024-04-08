@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "eduotter",
+    "slug": "eduotter",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
