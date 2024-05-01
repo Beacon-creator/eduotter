@@ -5,6 +5,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+
+     "fonts": {
+      "SourceCodePro-Bold": "assets/fonts/SourceCodePro-Bold.otf",
+      "SourceCodePro-Regular": "assets/fonts/SourceCodePro-Regular.otf",
+      "SourceCodePro-Medium": "assets/fonts/SourceCodePro-Medium.otf"
+    }
   }
 }
