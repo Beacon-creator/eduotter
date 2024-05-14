@@ -6,6 +6,8 @@ import {
   Text,
   Image,
   StyleSheet,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import {
   STYLES,
@@ -22,10 +24,13 @@ import AppleIcon from "../assets/apple.png";
 import Check from "../assets/checksuccess.png";
 import Bigbuttonicon from "../components/bigbuttonicon";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
+
 
 const Login = () => {
   const navigation = useNavigation(); // Initialize navigation
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -45,10 +50,53 @@ const Login = () => {
     navigation.navigate("ForgotPassword");
   };
 
-   const handleLogin = () => {
-     // Navigate to Forgot Password screen
-     navigation.navigate("Home");
-   };
+
+
+  const handleLogin = async () => {
+    try {
+      setIsLoading(true);
+      // Check if all fields are valid
+      if (isUsernameValid && isPasswordValid) {
+        // Make a POST request to your backend login endpoint
+        const response = await axios.post(
+          "https://firstbackend-r5wx.onrender.com/api/login",
+          {
+            username: username,
+            password: password,
+          }
+        );
+
+        // Handle successful login
+        console.log("Login successful:", response.data);
+        Alert.alert(
+          "Success",
+          "Login successful!",
+          [
+            {
+              text: "OK",
+              onPress: () => {
+                navigation.navigate("Home");
+              },
+            },
+          ],
+          { cancelable: false }
+        );
+      } else {
+        // Display an error message if any field is invalid
+        Alert.alert("Invalid Input", "Please fill in all fields correctly.");
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Incorrect data:", error.response.data);
+      Alert.alert(
+        "Error",
+        "An error occurred while trying to sign in. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
     const handleSignup = () => {
       // Navigate to Forgot Password screen
@@ -67,7 +115,7 @@ const Login = () => {
 
   const handleUsernameChange = (text) => {
     setUsername(text);
-    setIsUsernameValid(validateEmail(text));
+    setIsUsernameValid(text);
   };
 
   const handlePasswordChange = (text) => {
@@ -132,7 +180,7 @@ const Login = () => {
         >
           <TextInput
             placeholderTextColor={COLORS.black}
-            keyboardType="email-address"
+            keyboardType="default"
             style={[styles.input, isUsernameFocused && styles.inputFocused]}
             value={username}
             onChangeText={handleUsernameChange}
@@ -200,17 +248,22 @@ const Login = () => {
         </View>
 
         <View style={{ marginTop: 20 }}>
+            {/* Step 4: Render spinner conditionally */}
+          {isLoading ? (
+            <ActivityIndicator size="small" color={COLORS.primarybackground} />
+          ) : (
           <FlatButton2
             text="Log in"
             backColor={COLORS.primarybackground}
             textcolor={COLORS.white}
             onPress={() => {
               if (!isLoginDisabled) {
-                handleLogin;
+                handleLogin();
               }
             }}
             disabled={isLoginDisabled}
           />
+          )}
         </View>
 
         <View style={{ marginTop: 15 }}>

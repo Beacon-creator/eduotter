@@ -1,6 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login, Onboarding, Signup, ForgotPassword, NewPassword, PasswordChanged, VerifyPasswordChangeCode, VerificationPage } from "./screens";
+import {
+  Login,
+  Onboarding,
+  Signup,
+  ForgotPassword,
+  NewPassword,
+  PasswordChanged,
+  VerifyPasswordChangeCode,
+  VerificationPage,
+} from "./screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -8,7 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Signup"
+        initialRouteName="Onboarding"
         screenOptions={{
           contentStyle: { padding: 0, margin: 0 }, // Remove default padding and margin
         }}

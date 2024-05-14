@@ -18,7 +18,8 @@ const COLORS = {
   secondaryText: "#edf1fd",
   tertiaryText: "#41547c",
 
-  borderBlue: '#98a2b3',
+  inbackcolor: "#fb5b5a",
+  borderBlue: "#98a2b3",
 };
 
 const FONT = {
@@ -62,7 +63,6 @@ const SHADOWS = {
     shadowRadius: 5.84,
     elevation: 5,
   },
-  
 };
 
 const STYLES = {
@@ -70,7 +70,8 @@ const STYLES = {
     flex: 1,
     justifyContent: "top", //column
     alignItems: "center", //row
-    paddingTop: 30,
+    paddingTop: 20,
+    paddingHorizontal: 30,
     backgroundColor: COLORS.white, // Corrected spelling
   },
 
@@ -82,6 +83,13 @@ const STYLES = {
     margin: 0,
     backgroundColor: COLORS.white, // Corrected spelling
   },
+
+  container3: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+  },
 };
 
 const IMG = {
@@ -92,59 +100,59 @@ const IMG = {
     borderRadius: 10,
   },
 
-    midimage: {
+  midimage: {
     width: 340,
     height: 310,
     marginTop: 64,
     padding: 10,
   },
-}
+};
 
 const BUTTON = {
-largebutton: {
-   width: 320,
+  largebutton: {
+    width: 320,
     height: 50,
     paddingVertical: 14,
     paddingHorizontal: 10,
     marginTop: 36,
     borderRadius: 8,
     backgroundColor: COLORS.primarybackground,
-},
+  },
 
-largebutton2: {
-   width: 320,
+  largebutton2: {
+    width: 320,
     height: 50,
     paddingVertical: 14,
     paddingHorizontal: 10,
     marginTop: 16,
     borderRadius: 8,
-   // backgroundColor: COLORS.secondarybackground,
-},
+    // backgroundColor: COLORS.secondarybackground,
+  },
 
-midbutton: {
-   width: 340,
+  midbutton: {
+    width: 340,
     height: 20,
     marginTop: 10,
     borderRadius: 8,
-   backgroundColor: COLORS.primary,
-},
-}
+    backgroundColor: COLORS.primary,
+  },
+};
 
 const BUTTONText = {
-text1: {
-   fontWeight: FONT.semiBold,
+  text1: {
+    fontWeight: FONT.semiBold,
     fontSize: SIZES.large,
-    textAlign: 'center',
+    textAlign: "center",
     color: COLORS.white,
-},
+  },
 
-text2: {
-   fontWeight: FONT.semiBold,
+  text2: {
+    fontWeight: FONT.semiBold,
     fontSize: SIZES.medium,
-    textAlign: 'center',
+    textAlign: "center",
     color: COLORS.transparent,
-},
-}
+  },
+};
 
 const BodyText = {
   Header: {
@@ -175,9 +183,6 @@ const BodyText = {
   centersmalltext: {
     fontWeight: FONT.semiBold,
     fontSize: SIZES.small,
-    textAlign: "center",
-    marginTop: 10,
-    flexWrap: "wrap",
     color: COLORS.neutral,
   },
 
@@ -190,11 +195,7 @@ const BodyText = {
 
   centersmalltext3: {
     fontWeight: FONT.bold,
-    fontSize: SIZES.xSmall,
-    textAlign: "center",
-    alignSelf: "flex-start",
-    marginTop: -7,
-    textAlignVertical: "bottom",
+    fontSize: SIZES.small,
     color: COLORS.primarybackground,
   },
 
@@ -207,13 +208,10 @@ const BodyText = {
   },
 };
 
-
-
-
 const loginstyles = {
   container: {
     flex: 1,
-    backgroundColor: "#003f5c",
+    backgroundColor: COLORS.inbackcolor,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -229,7 +227,7 @@ const loginstyles = {
     borderWidth: 2,
     fontSize: SIZES.xxSmall,
     borderRadius: 8,
-   // alignItems: "center",
+    // alignItems: "center",
     //justifyContent: "center",
   },
   logo: {
@@ -270,14 +268,15 @@ const loginstyles = {
   },
 };
 
-
-
-
-
-
-
-
-
-export { COLORS, FONT, SIZES, SHADOWS, STYLES,BodyText, loginstyles, IMG, BUTTON, BUTTONText };
-
-
+export {
+  COLORS,
+  FONT,
+  SIZES,
+  SHADOWS,
+  STYLES,
+  BodyText,
+  loginstyles,
+  IMG,
+  BUTTON,
+  BUTTONText,
+};

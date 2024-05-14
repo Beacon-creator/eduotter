@@ -6,6 +6,8 @@ import {
   Text,
   Image,
   StyleSheet,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import {
   STYLES,
@@ -20,12 +22,15 @@ import FlatButton2 from "../components/button2";
 import GoogleIcon from "../assets/google.png";
 import AppleIcon from "../assets/apple.png";
 import Check from "../assets/checksuccess.png";
+//import spincircle from "./assets/spin-circle.gif";
 import Bigbuttonicon from "../components/bigbuttonicon";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+
 const Signup = () => {
   const navigation = useNavigation(); // Initialize navigation
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -36,7 +41,7 @@ const Signup = () => {
   const [isUsernameValid, setIsUsernameValid] = useState(false);
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
-  const isLoginDisabled = !(
+  const isSignupDisabled = !(
     isUsernameValid &&
     isEmailValid &&
     isPasswordValid &&
@@ -50,39 +55,68 @@ const Signup = () => {
     navigation.navigate("ForgotPassword");
   };
 
-const handleSignup = async () => {
-  try {
-    // Check if all fields are valid
-    if (isUsernameValid && isEmailValid && isPasswordValid) {
-      // Make a POST request to your backend signup endpoint
-      const response = await axios.post("http://your-backend-url/signup", {
-        username: username,
-        email: email,
-        password: password,
-      });
+  const handleSignup = async () => {
+    try {
+      setIsLoading(true);
+      // Check if all fields are valid
+      if (isUsernameValid && isEmailValid && isPasswordValid) {
+        // Make a POST request to your backend signup endpoint
+        const response = await axios.post(
+          "https://firstbackend-r5wx.onrender.com/api/signup",
+          {
+            username: username,
+            useremail: email,
+            password: password,
+          }
+        );
 
-      // Handle successful signup
-      console.log("Signup successful:", response.data);
-      // You may want to redirect the user to a different page or show a success message here
-      navigation.navigate("Login");
-    } else {
-      // Display an error message if any field is invalid
-      console.error("Invalid signup data");
-      // You may want to display an error message to the user
+        // Handle successful signup
+        console.log("Signup successful:", response.data);
+        Alert.alert(
+          "Success",
+          "Signup successful!",
+          [
+            {
+              text: "Sign in",
+              onPress: () => {
+                navigation.navigate("Login");
+              },
+              style: "cancel", // You can customize the button style
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                console.log("Continue pressed");
+              },
+              style: "default",
+            },
+          ],
+          {
+            cancelable: false,
+            style: styles.alert,
+            messageStyle: styles.message,
+          } // You can specify whether the alert is cancelable
+        );
+      } else {
+        // Display an error message if any field is invalid
+        Alert.alert("Invalid Input", "Please fill in all fields correctly.");
+      }
+    } catch (error) {
+      // Handle errors
+      console.error("Error signing up:", error.response.data);
+      Alert.alert(
+        "Error",
+        "An error occurred while signing up. Please try again later."
+      );
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    // Handle errors
-    console.error("Error signing up:", error.response.data);
-    // You may want to display an error message to the user
-  }
-};
-
+  };
 
   const handleLogin = () => {
     // Navigate to Forgot Password screen
     navigation.navigate("Login");
   };
-
 
   const handleUsernameFocus = () => {
     setIsUsernameFocused(true);
@@ -102,10 +136,11 @@ const handleSignup = async () => {
     setIsUsernameFocused(false);
   };
 
-   const handleUsernameChange = (text) => {
-     setUsername(text);
-     setIsUsernameValid((text));
-   };
+  const handleUsernameChange = (text) => {
+    setUsername(text);
+    // Check if username has at least six characters
+    setIsUsernameValid(text.length >= 6);
+  };
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -161,7 +196,7 @@ const handleSignup = async () => {
   return (
     <SafeAreaView style={{ ...STYLES.container, flex: 1 }}>
       <View>
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginTop: 15 }}>
           <Text style={BodyText.Header}>Sign up to new opportunities</Text>
         </View>
 
@@ -174,7 +209,7 @@ const handleSignup = async () => {
         >
           <TextInput
             placeholderTextColor={COLORS.black}
-            keyboardType="text"
+            keyboardType="default"
             style={[styles.input, isUsernameFocused && styles.inputFocused]}
             value={username}
             onChangeText={handleUsernameChange}
@@ -258,7 +293,7 @@ const handleSignup = async () => {
           {renderShowText()}
         </View>
 
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginVertical: 5 }}>
           <Text
             style={{
               color: COLORS.othertext,
@@ -270,37 +305,35 @@ const handleSignup = async () => {
           </Text>
         </View>
 
-        <View style={{ marginTop: 20 }}>
-          <FlatButton2
-            text="Continue"
-            backColor={COLORS.primarybackground}
-            textcolor={COLORS.white}
-            onPress={() => {
-              if (!isLoginDisabled) {
-                handleSignup;
-              }
-            }}
-            disabled={isLoginDisabled}
-          />
+        <View>
+          {/* Step 4: Render spinner conditionally */}
+          {isLoading ? (
+            <ActivityIndicator size="small" color={COLORS.primarybackground} />
+          ) : (
+            <FlatButton2
+              text="Continue"
+              backColor={COLORS.primarybackground}
+              textcolor={COLORS.white}
+              onPress={() => {
+                if (!isSignupDisabled) {
+                  handleSignup();
+                }
+              }}
+              disabled={isSignupDisabled}
+            />
+          )}
+        </View>
+
+        <View style={STYLES.container3}>
+          <Text style={BodyText.centersmalltext}>
+            Already have an account?{"  "}
+          </Text>
+          <TouchableOpacity onPress={handleLogin}>
+            <Text style={[BodyText.centersmalltext3]}>Log in</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={{ marginTop: 10 }}>
-          <Text style={BodyText.centersmalltext}>
-            Already have an account?
-            <TouchableOpacity style={{ marginTop: 10 }} onPress={handleLogin}>
-              <Text
-                style={
-              BodyText.centersmalltext3
-                }
-              >
-                {"  "}
-                Log in
-              </Text>
-            </TouchableOpacity>
-          </Text>
-        </View>
-
-        <View style={{ marginTop: 20 }}>
           <Bigbuttonicon
             iconSource={GoogleIcon}
             text="Sign up with Google"
@@ -321,6 +354,20 @@ const handleSignup = async () => {
 };
 
 const styles = StyleSheet.create({
+  // Define custom styles for the alert
+  alert: {
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "red",
+    backgroundColor: "lightblue",
+  },
+  // Define custom styles for the alert message
+  message: {
+    color: "green",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+
   showTextContainer: {
     position: "absolute",
     right: 12,

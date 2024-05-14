@@ -1,4 +1,4 @@
-package com.eduotter
+package com.fanal.eduotter
 
 import android.app.Application
 import android.content.res.Configuration

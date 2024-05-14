@@ -7,7 +7,6 @@ import { images } from "../constants/images";
 import FlatButton from "../components/button";
 import FlatButton2 from "../components/button2";
 
-
 const Onboarding = () => {
   const navigation = useNavigation(); // Use useNavigation to get the navigation object
 
@@ -25,15 +24,23 @@ const Onboarding = () => {
 
       <Image source={images.onboarding1} style={IMG.midimage} />
 
-      <Text style={{ fontSize: SIZES.xxLarge, fontWeight: FONT.bold }}>
+      <Text
+        style={{
+          marginTop: 10,
+          fontSize: SIZES.xxLarge,
+          fontWeight: FONT.bold,
+        }}
+      >
         <Text style={{ color: COLORS.primarybackground }}>Opportunities</Text>{" "}
         are always with us 😊
       </Text>
 
       <FlatButton text="Let's get started" onPress={handleStart} />
-      <FlatButton2 text="I already have an account"
-       backColor= {COLORS.secondarybackground}
-       onPress={handleSignIn} />
+      <FlatButton2
+        text="I already have an account"
+        backColor={COLORS.secondarybackground}
+        onPress={handleSignIn}
+      />
     </View>
   );
 };
