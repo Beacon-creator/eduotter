@@ -13,6 +13,7 @@ import {
   STYLES,
   BodyText,
   COLORS,
+  BUTTON,
   loginstyles,
   SIZES,
   FONT,
@@ -50,10 +51,6 @@ const Signup = () => {
     password
   );
 
-  const handleForgotPassword = () => {
-    // Navigate to Forgot Password screen
-    navigation.navigate("ForgotPassword");
-  };
 
   const handleSignup = async () => {
     try {
@@ -79,7 +76,9 @@ const Signup = () => {
             {
               text: "Sign in",
               onPress: () => {
-                navigation.navigate("Login");
+               navigation.navigate("VerifyEmail", {
+                 email: email,
+               });
               },
               style: "cancel", // You can customize the button style
             },
@@ -113,7 +112,7 @@ const Signup = () => {
     }
   };
 
-  const handleLogin = () => {
+  const handleTapLogin = () => {
     // Navigate to Forgot Password screen
     navigation.navigate("Login");
   };
@@ -305,30 +304,36 @@ const Signup = () => {
           </Text>
         </View>
 
-        <View>
-          {/* Step 4: Render spinner conditionally */}
-          {isLoading ? (
-            <ActivityIndicator size="small" color={COLORS.primarybackground} />
-          ) : (
-            <FlatButton2
-              text="Continue"
-              backColor={COLORS.primarybackground}
-              textcolor={COLORS.white}
-              onPress={() => {
-                if (!isSignupDisabled) {
-                  handleSignup();
-                }
-              }}
-              disabled={isSignupDisabled}
-            />
-          )}
+        <View style={{ position: "relative" }}>
+          {/* Render the FlatButton2 and ActivityIndicator inside a parent container */}
+          <View style={BUTTON.activitybutton}>
+            {/* Render ActivityIndicator */}
+            {isLoading && (
+              <ActivityIndicator
+                size="small"
+                color={COLORS.primarybackground}
+              />
+            )}
+          </View>
+          {/* Render FlatButton2 */}
+          <FlatButton2
+            text="Continue"
+            backColor={COLORS.primarybackground}
+            textcolor={COLORS.white}
+            onPress={() => {
+              if (!isSignupDisabled) {
+                handleSignup();
+              }
+            }}
+            disabled={isSignupDisabled}
+          />
         </View>
 
         <View style={STYLES.container3}>
           <Text style={BodyText.centersmalltext}>
-            Already have an account?{"  "}
+            Already have an account?{" "}
           </Text>
-          <TouchableOpacity onPress={handleLogin}>
+          <TouchableOpacity onPress={handleTapLogin}>
             <Text style={[BodyText.centersmalltext3]}>Log in</Text>
           </TouchableOpacity>
         </View>

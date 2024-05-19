@@ -4,11 +4,11 @@ import {
   Login,
   Onboarding,
   Signup,
+  VerifyEmail,
   ForgotPassword,
   NewPassword,
   PasswordChanged,
   VerifyPasswordChangeCode,
-  VerificationPage,
 } from "./screens";
 
 const Stack = createNativeStackNavigator();
@@ -45,16 +45,16 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="ForgotPassword"
-          component={ForgotPassword}
+          name="VerifyEmail"
+          component={VerifyEmail}
           options={{
             headerShown: false,
           }}
         />
 
         <Stack.Screen
-          name="VerificationPage"
-          component={VerificationPage}
+          name="ForgotPassword"
+          component={ForgotPassword}
           options={{
             headerShown: false,
           }}

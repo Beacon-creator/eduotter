@@ -90,6 +90,12 @@ const STYLES = {
     justifyContent: "center",
     marginTop: 15,
   },
+  container4: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'space-between',
+    marginTop: 30,
+  },
 };
 
 const IMG = {
@@ -135,6 +141,16 @@ const BUTTON = {
     marginTop: 10,
     borderRadius: 8,
     backgroundColor: COLORS.primary,
+  },
+
+  activitybutton: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
   },
 };
 

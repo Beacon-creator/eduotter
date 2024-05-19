@@ -15,7 +15,7 @@ const PasswordChanged = () => {
 
   return (
     <View style={STYLES.container}>
-      <View style={{marginTop: 20, padding: 20}}>
+      <View style={{marginTop: 50, paddingHorizontal: 20}}>
         <Image source={images.Unicorn} style={IMG.midimage} />
       </View>
 
@@ -26,7 +26,7 @@ const PasswordChanged = () => {
         </Text>
       </View>
 
-      <View style={{ marginTop: 40 }}>
+      <View style={{ marginTop: 50 }}>
         <FlatButton text="Back to Login" onPress={handleSignIn} />
       </View>
     </View>

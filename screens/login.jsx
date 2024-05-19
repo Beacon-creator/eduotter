@@ -13,6 +13,7 @@ import {
   STYLES,
   BodyText,
   COLORS,
+  BUTTON,
   loginstyles,
   SIZES,
   FONT,
@@ -75,7 +76,7 @@ const Login = () => {
             {
               text: "OK",
               onPress: () => {
-                navigation.navigate("Home");
+                navigation.navigate("Onboarding");
               },
             },
           ],
@@ -98,7 +99,7 @@ const Login = () => {
   };
 
 
-    const handleSignup = () => {
+    const handleTapSignup = () => {
       // Navigate to Forgot Password screen
       navigation.navigate("Signup");
     };
@@ -115,7 +116,7 @@ const Login = () => {
 
   const handleUsernameChange = (text) => {
     setUsername(text);
-    setIsUsernameValid(text);
+     setIsUsernameValid(text.length >= 6);
   };
 
   const handlePasswordChange = (text) => {
@@ -167,7 +168,7 @@ const Login = () => {
   return (
     <SafeAreaView style={{ ...STYLES.container, flex: 1 }}>
       <View>
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginTop: 15 }}>
           <Text style={BodyText.Header}>Welcome Back</Text>
         </View>
 
@@ -247,11 +248,18 @@ const Login = () => {
           </TouchableOpacity>
         </View>
 
-        <View style={{ marginTop: 20 }}>
-            {/* Step 4: Render spinner conditionally */}
-          {isLoading ? (
-            <ActivityIndicator size="small" color={COLORS.primarybackground} />
-          ) : (
+        <View style={{ marginTop: 10, position: "relative" }}>
+          {/* Render the FlatButton2 and ActivityIndicator inside a parent container */}
+          <View style={BUTTON.activitybutton}>
+            {/* Render ActivityIndicator */}
+            {isLoading && (
+              <ActivityIndicator
+                size="small"
+                color={COLORS.primarybackground}
+              />
+            )}
+          </View>
+          {/* Render FlatButton2 */}
           <FlatButton2
             text="Log in"
             backColor={COLORS.primarybackground}
@@ -263,25 +271,14 @@ const Login = () => {
             }}
             disabled={isLoginDisabled}
           />
-          )}
+          
         </View>
 
-        <View style={{ marginTop: 15 }}>
-          <Text style={BodyText.centersmalltext}>
-            Don't have an account?
-            <TouchableOpacity style={{ marginTop: 10 }} onPress={handleSignup}>
-              <Text
-                style={{
-                  marginTop: 10,
-                  color: COLORS.primarybackground,
-                  fontWeight: FONT.bold,
-                }}
-              >
-                {" "}
-                Sign up
-              </Text>
-            </TouchableOpacity>
-          </Text>
+        <View style={STYLES.container3}>
+          <Text style={BodyText.centersmalltext}>Don't have an account? </Text>
+          <TouchableOpacity onPress={handleTapSignup}>
+            <Text style={[BodyText.centersmalltext3]}>Sign up</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={{ marginTop: 20 }}>

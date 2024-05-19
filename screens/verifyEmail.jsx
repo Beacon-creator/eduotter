@@ -3,36 +3,35 @@ import {
   SafeAreaView,
   View,
   Text,
+  ActivityIndicator,
+  Alert,
   TouchableOpacity,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FlatButton2 from "../components/button2";
-import { COLORS, BodyText,BUTTON, STYLES, SIZES, FONT } from "../constants/theme";
+import { COLORS,BUTTON, BodyText, STYLES, SIZES, FONT } from "../constants/theme";
 import SmallBox from "../components/smallbox";
+import axios from "axios";
 
 function VerifyPasswordChangeCode() {
   const navigation = useNavigation(); // Initialize navigation
   const route = useRoute(); // Get the route object
 
-  //const { email } = route.params; // Get the email parameter from route.params
+  const email = "email"; // Mock email
 
-const email = 'email';
   const [isContinueDisabled, setIsContinueDisabled] = useState(true); // Initially disabled
   const [isLoading, setIsLoading] = useState(false);
+
   const smallBoxRef = useRef(null);
 
-
-  const handlePasswordVerificationContinue = async () => {
+  const handleVerificationEmail = async () => {
     setIsLoading(true); // Start loading
 
     try {
-      const uniqueOtp = smallBoxRef.current.getValue();
-      await axios.post(
-        "https://firstbackend-r5wx.onrender.com/api/verifypasswordotp",
-        {
-          uniqueOtp,
-        }
-      );
+      const otp = smallBoxRef.current.getValue();
+      await axios.post("https://firstbackend-r5wx.onrender.com/api/verifyotp", {
+        otp,
+      });
       Alert.alert("Success", "Email verified successfully");
       navigation.navigate("Login");
     } catch (error) {
@@ -43,25 +42,22 @@ const email = 'email';
     }
   };
 
-   const handleResendPasscode = async () => {
-     setIsLoading(true); // Start loading
+  const handleResendEmailVerificationcode = async () => {
+    setIsLoading(true); // Start loading
 
-     try {
-       await axios.post(
-         "https://firstbackend-r5wx.onrender.com/api/resendotppassword"
-       );
-       Alert.alert("Success", "Verification code resent successfully");
-     } catch (error) {
-       Alert.alert(
-         "Error",
-         "Failed to resend verification code. Please try again."
-       );
-       console.error("Error resending verification code:", error);
-     } finally {
-       setIsLoading(false); // Stop loading
-     }
-   };
-
+    try {
+      await axios.post("https://firstbackend-r5wx.onrender.com/api/resendotp");
+      Alert.alert("Success", "Verification code resent successfully");
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        "Failed to resend verification code. Please try again."
+      );
+      console.error("Error resending verification code:", error);
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
+  };
 
   const handleSmallBoxChange = (value) => {
     const allFieldsFilled =
@@ -73,21 +69,21 @@ const email = 'email';
     <SafeAreaView style={{ ...STYLES.container, flex: 1 }}>
       <View style={{ marginTop: 40 }}>
         <View style={{ marginTop: 10 }}>
-          <Text style={BodyText.Header}>Verification Code</Text>
+          <Text style={BodyText.Header}>Verify Email</Text>
           <View>
             <Text style={[BodyText.centersmalltext2, { marginTop: -15 }]}>
               sent to {email}
             </Text>
           </View>
         </View>
+
         <View style={{ marginTop: 40 }}>
           <SmallBox
             ref={smallBoxRef}
-            length={4} // Customize the length of the password input
-            inputStyle={{ borderColor: COLORS.borderBlue }} // Customize the style of the input
-            containerStyle={{ marginTop: 10 }} // Customize the style of the container
-            onChange={handleSmallBoxChange} // Callback function to handle changes in SmallBox
-            // Any additional props to pass to the TextInput component
+            length={4}
+            inputStyle={{ borderColor: COLORS.borderBlue }}
+            containerStyle={{ marginTop: 10 }}
+            onChange={handleSmallBoxChange}
           />
         </View>
 
@@ -109,15 +105,15 @@ const email = 'email';
             textColor={COLORS.white}
             onPress={() => {
               if (!isContinueDisabled) {
-                handlePasswordVerificationContinue(); // Call the function
+                handleVerificationEmail();
               }
             }}
-            disabled={isContinueDisabled}
+            disabled={isContinueDisabled} // Disable based on isForgotPasswordDisabled
           />
         </View>
 
         <View style={{ marginTop: 15 }}>
-          <TouchableOpacity onPress={handleResendPasscode}>
+          <TouchableOpacity onPress={handleResendEmailVerificationcode}>
             <Text
               style={{
                 fontSize: SIZES.medium,
