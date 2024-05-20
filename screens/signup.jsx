@@ -76,16 +76,18 @@ const Signup = () => {
             {
               text: "Sign in",
               onPress: () => {
-               navigation.navigate("VerifyEmail", {
-                 email: email,
-               });
+                navigation.navigate("VerifyEmail", {
+                  email: email,
+                });
               },
               style: "cancel", // You can customize the button style
             },
             {
               text: "OK",
               onPress: () => {
-                console.log("Continue pressed");
+                navigation.navigate("VerifyEmail", {
+                  email: email,
+                });
               },
               style: "default",
             },
