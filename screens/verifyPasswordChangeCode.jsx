@@ -3,13 +3,15 @@ import {
   SafeAreaView,
   View,
   Text,
-  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import FlatButton2 from "../components/button2";
 import { COLORS, BodyText,BUTTON, STYLES, SIZES, FONT } from "../constants/theme";
 import SmallBox from "../components/smallbox";
-
+import axios from "axios";
 function VerifyPasswordChangeCode() {
   const navigation = useNavigation(); // Initialize navigation
   const route = useRoute(); // Get the route object
@@ -28,7 +30,7 @@ const email = 'email';
     try {
       const uniqueOtp = smallBoxRef.current.getValue();
       await axios.post(
-        "https://firstbackend-r5wx.onrender.com/api/verifypasswordotp",
+        "https://firstbackend-kxnp.onrender.com/api/verifypasswordotp",
         {
           uniqueOtp,
         }
@@ -48,7 +50,7 @@ const email = 'email';
 
      try {
        await axios.post(
-         "https://firstbackend-r5wx.onrender.com/api/resendotppassword"
+         "https://firstbackend-kxnp.onrender.com/api/resendotppassword"
        );
        Alert.alert("Success", "Verification code resent successfully");
      } catch (error) {

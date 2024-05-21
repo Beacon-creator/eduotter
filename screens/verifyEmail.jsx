@@ -29,7 +29,7 @@ function VerifyPasswordChangeCode() {
 
     try {
       const otp = smallBoxRef.current.getValue();
-      await axios.post("https://firstbackend-r5wx.onrender.com/api/verifyotp", {
+      await axios.post("https://firstbackend-kxnp.onrender.com/api/verifyotp", {
         otp,
       });
       Alert.alert("Success", "Email verified successfully");
@@ -46,7 +46,7 @@ function VerifyPasswordChangeCode() {
     setIsLoading(true); // Start loading
 
     try {
-      await axios.post("https://firstbackend-r5wx.onrender.com/api/resendotp");
+      await axios.post("https://firstbackend-kxnp.onrender.com/api/resendotp");
       Alert.alert("Success", "Verification code resent successfully");
     } catch (error) {
       Alert.alert(

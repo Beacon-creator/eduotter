@@ -42,7 +42,7 @@ function ForgotPassword() {
       setIsLoading(true);
       if (isEmailValid) {
         const response = await axios.post(
-          "https://firstbackend-r5wx.onrender.com/api/forgot_password",
+          "https://firstbackend-kxnp.onrender.com/api/forgot_password",
           { useremail: email }
         );
 

@@ -60,7 +60,7 @@ const NewPassword = () => {
       if (isNewPasswordValid && isNewPasswordTwoValid) {
         // Make a POST request to your backend signup endpoint
         const response = await axios.post(
-          "https://firstbackend-r5wx.onrender.com/api/newpassword",
+          "https://firstbackend-kxnp.onrender.com/api/newpassword",
           {
             newPassword: newPassword,
             confirmPassword: newPasswordTwo,

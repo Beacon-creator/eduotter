@@ -26,7 +26,7 @@ import Check from "../assets/checksuccess.png";
 import Bigbuttonicon from "../components/bigbuttonicon";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Login = () => {
   const navigation = useNavigation(); // Initialize navigation
@@ -60,7 +60,7 @@ const Login = () => {
       if (isUsernameValid && isPasswordValid) {
         // Make a POST request to your backend login endpoint
         const response = await axios.post(
-          "https://firstbackend-r5wx.onrender.com/api/login",
+          "https://firstbackend-kxnp.onrender.com/api/login",
           {
             username: username,
             password: password,
@@ -69,6 +69,9 @@ const Login = () => {
 
         // Handle successful login
         console.log("Login successful:", response.data);
+        // Store the token in AsyncStorage
+        await AsyncStorage.setItem("auth_token", response.data.token);
+         console.log("Data and token stored successfully");
         Alert.alert(
           "Success",
           "Login successful!",
