@@ -12,6 +12,8 @@ import FlatButton2 from "../components/button2";
 import { COLORS, BodyText,BUTTON, STYLES, SIZES, FONT } from "../constants/theme";
 import SmallBox from "../components/smallbox";
 import axios from "axios";
+
+
 function VerifyPasswordChangeCode() {
   const navigation = useNavigation(); // Initialize navigation
   const route = useRoute(); // Get the route object
@@ -28,9 +30,11 @@ const email = 'email';
     setIsLoading(true); // Start loading
 
     try {
-      const uniqueOtp = smallBoxRef.current.getValue();
+      const otpArrays = smallBoxRef.current.getValue();
+      const uniqueOtp = otpArrays.join(""); // Concatenate OTP digits into a single string
+      console.log(uniqueOtp);
       await axios.post(
-        "https://firstbackend-kxnp.onrender.com/api/verifypasswordotp",
+        "https://firstbackend-1c5d.onrender.com/api/verifypasswordotp",
         {
           uniqueOtp,
         }
@@ -50,7 +54,7 @@ const email = 'email';
 
      try {
        await axios.post(
-         "https://firstbackend-kxnp.onrender.com/api/resendotppassword"
+         "https://firstbackend-1c5d.onrender.com/api/resendotppassword"
        );
        Alert.alert("Success", "Verification code resent successfully");
      } catch (error) {

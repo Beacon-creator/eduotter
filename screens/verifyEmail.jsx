@@ -13,7 +13,7 @@ import { COLORS,BUTTON, BodyText, STYLES, SIZES, FONT } from "../constants/theme
 import SmallBox from "../components/smallbox";
 import axios from "axios";
 
-function VerifyPasswordChangeCode() {
+function VerifyEmail() {
   const navigation = useNavigation(); // Initialize navigation
   const route = useRoute(); // Get the route object
 
@@ -28,10 +28,13 @@ function VerifyPasswordChangeCode() {
     setIsLoading(true); // Start loading
 
     try {
-      const otp = smallBoxRef.current.getValue();
-      await axios.post("https://firstbackend-kxnp.onrender.com/api/verifyotp", {
+      const otpArray = smallBoxRef.current.getValue();
+      const otp = otpArray.join(""); // Concatenate OTP digits into a single string
+      console.log(otp);
+      await axios.post("https://firstbackend-1c5d.onrender.com/api/verifyotp", {
         otp,
       });
+
       Alert.alert("Success", "Email verified successfully");
       navigation.navigate("Login");
     } catch (error) {
@@ -46,7 +49,7 @@ function VerifyPasswordChangeCode() {
     setIsLoading(true); // Start loading
 
     try {
-      await axios.post("https://firstbackend-kxnp.onrender.com/api/resendotp");
+      await axios.post("https://firstbackend-1c5d.onrender.com/api/resendotp");
       Alert.alert("Success", "Verification code resent successfully");
     } catch (error) {
       Alert.alert(
@@ -142,4 +145,4 @@ function VerifyPasswordChangeCode() {
   );
 }
 
-export default VerifyPasswordChangeCode;
+export default VerifyEmail;

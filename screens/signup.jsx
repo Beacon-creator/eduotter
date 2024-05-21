@@ -59,7 +59,7 @@ const Signup = () => {
       if (isUsernameValid && isEmailValid && isPasswordValid) {
         // Make a POST request to your backend signup endpoint
         const response = await axios.post(
-          "https://firstbackend-kxnp.onrender.com/api/signup",
+          "https://firstbackend-1c5d.onrender.com/api/signup",
           {
             username: username,
             useremail: email,
