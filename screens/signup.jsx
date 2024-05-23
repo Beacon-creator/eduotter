@@ -68,13 +68,13 @@ const Signup = () => {
         );
 
         // Handle successful signup
-        console.log("Signup successful:", response.data);
+       // console.log("Signup successful:", response.data);
         Alert.alert(
           "Success",
           "Signup successful!",
           [
             {
-              text: "Sign in",
+              text: "Ok",
               onPress: () => {
                 navigation.navigate("VerifyEmail", {
                   email: email,
@@ -83,7 +83,7 @@ const Signup = () => {
               style: "cancel", // You can customize the button style
             },
             {
-              text: "OK",
+              text: "Sign in",
               onPress: () => {
                 navigation.navigate("VerifyEmail", {
                   email: email,
@@ -104,10 +104,10 @@ const Signup = () => {
       }
     } catch (error) {
       // Handle errors
-      console.error("Error signing up:", error.response.data);
+     // console.error("Error signing up:", error.response.data);
       Alert.alert(
         "Error",
-        "An error occurred while signing up. Please try again later."
+        "Email is already in use. Please check details again."
       );
     } finally {
       setIsLoading(false);

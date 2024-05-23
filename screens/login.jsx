@@ -51,8 +51,6 @@ const Login = () => {
     navigation.navigate("ForgotPassword");
   };
 
-
-
   const handleLogin = async () => {
     try {
       setIsLoading(true);
@@ -68,13 +66,15 @@ const Login = () => {
         );
 
         // Handle successful login
-        console.log("Login successful:", response.data);
+        //  console.log("Login successful:", response.data);
         // Store the token in AsyncStorage
         await AsyncStorage.setItem("auth_token", response.data.token);
-         console.log("Data and token stored successfully");
+        //    console.log("Data and token stored successfully");
+
         Alert.alert(
           "Success",
           "Login successful!",
+
           [
             {
               text: "OK",
@@ -91,21 +91,24 @@ const Login = () => {
       }
     } catch (error) {
       // Handle errors
-      console.error("Incorrect data:", error.response.data);
+      // console.error("Incorrect data:", error.response.data);
       Alert.alert(
-        "Error",
-        "An error occurred while trying to sign in. Please try again."
+        "Warning",
+        "Username or password is incorrect. Please try again."
       );
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleLoginGoogle = () =>{
 
-    const handleTapSignup = () => {
-      // Navigate to Forgot Password screen
-      navigation.navigate("Signup");
-    };
+  };
+
+  const handleTapSignup = () => {
+    // Navigate to Forgot Password screen
+    navigation.navigate("Signup");
+  };
 
   const handleUsernameFocus = () => {
     setIsUsernameFocused(true);
@@ -119,7 +122,7 @@ const Login = () => {
 
   const handleUsernameChange = (text) => {
     setUsername(text);
-     setIsUsernameValid(text.length >= 6);
+    setIsUsernameValid(text.length >= 6);
   };
 
   const handlePasswordChange = (text) => {
@@ -274,7 +277,6 @@ const Login = () => {
             }}
             disabled={isLoginDisabled}
           />
-          
         </View>
 
         <View style={STYLES.container3}>
@@ -290,8 +292,13 @@ const Login = () => {
             text="Sign in with Google"
             backColor={COLORS.transparent}
             textcolor={COLORS.black}
+            onPress={() => {
+              if (!isLoginDisabled) {
+                handleLoginGoogle();
+              }
+            }}
+          
           />
-
           <Bigbuttonicon
             iconSource={AppleIcon}
             text="Sign in with Apple"

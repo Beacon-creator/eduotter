@@ -44,9 +44,9 @@ const NewPassword = () => {
     newPasswordTwo
   );
 
-  //const { email } = route.params; // Get the email parameter from route.params
+  const { email } = route.params; // Get the email parameter from route.params
 
-  const email = "emailhere";
+ // const email = "emailhere";
 
   const handleForgotPassword = () => {
     // Navigate to Forgot Password screen
@@ -100,10 +100,10 @@ const NewPassword = () => {
       }
     } catch (error) {
       // Handle errors
-      console.error("Error signing up:", error.response.data);
+    //  console.error("Error signing up:", error.response.data);
       Alert.alert(
         "Error",
-        "An error occurred while signing up. Please try again later."
+        "Error updating password. Please try again."
       );
     } finally {
       setIsLoading(false);

@@ -41,6 +41,17 @@ const Onboarding = () => {
         backColor={COLORS.secondarybackground}
         onPress={handleSignIn}
       />
+      <View>
+        <Text
+          style={{
+            marginTop: 10,
+            fontSize: SIZES.xxxSmall,
+            fontWeight: FONT.bold,
+          }}
+        >
+          Illustration by streamlinehq
+        </Text>
+      </View>
     </View>
   );
 };

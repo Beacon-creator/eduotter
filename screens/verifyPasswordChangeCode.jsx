@@ -18,9 +18,9 @@ function VerifyPasswordChangeCode() {
   const navigation = useNavigation(); // Initialize navigation
   const route = useRoute(); // Get the route object
 
-  //const { email } = route.params; // Get the email parameter from route.params
+  const { email } = route.params; // Get the email parameter from route.params
 
-const email = 'email';
+//const email = 'email';
   const [isContinueDisabled, setIsContinueDisabled] = useState(true); // Initially disabled
   const [isLoading, setIsLoading] = useState(false);
   const smallBoxRef = useRef(null);
@@ -40,33 +40,38 @@ const email = 'email';
         }
       );
       Alert.alert("Success", "Email verified successfully");
-      navigation.navigate("Login");
+      navigation.navigate("NewPassword");
     } catch (error) {
-      Alert.alert("Error", "Failed to verify email. Please try again.");
+      Alert.alert("Error", "Code is invalid. Please try again.");
       console.error("Error verifying email:", error);
     } finally {
       setIsLoading(false); // Stop loading
     }
   };
 
-   const handleResendPasscode = async () => {
-     setIsLoading(true); // Start loading
+  const handleResendPasscode = async () => {
+   
 
-     try {
-       await axios.post(
-         "https://firstbackend-1c5d.onrender.com/api/resendotppassword"
-       );
-       Alert.alert("Success", "Verification code resent successfully");
-     } catch (error) {
-       Alert.alert(
-         "Error",
-         "Failed to resend verification code. Please try again."
-       );
-       console.error("Error resending verification code:", error);
-     } finally {
-       setIsLoading(false); // Stop loading
-     }
-   };
+    try {
+      setIsLoading(true); // Start loading
+      await axios.post(
+        "https://firstbackend-1c5d.onrender.com/api/resendotppassword",
+        {
+          useremail: email,
+        }
+      );
+      Alert.alert("Success", "Code resent successfully");
+    } catch (error) {
+      Alert.alert(
+        "Error",
+        "Failed to resend verification code. Please try again."
+      );
+      console.error("Error resending verification code:", error);
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
+  };
+
 
 
   const handleSmallBoxChange = (value) => {

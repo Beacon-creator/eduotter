@@ -46,7 +46,7 @@ function ForgotPassword() {
           { useremail: email }
         );
 
-        console.log("Code sent:", response.data);
+        //console.log("Code sent:", response.data);
         Alert.alert(
           "Success",
           "Code sent successfully!",
@@ -66,7 +66,7 @@ function ForgotPassword() {
         Alert.alert("Invalid Email", "Please, check your email.");
       }
     } catch (error) {
-      console.error("Error sending code:", error.response.data);
+      //console.error("Error sending code:", error.response.data);
       Alert.alert(
         "Error",
         "An error occurred while sending. Please try again."
